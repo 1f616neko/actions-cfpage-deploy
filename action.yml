@@ -20,12 +20,12 @@ inputs:
     required: true
     default: '_site'
 runs:
-  using: 'node16'
+  using: 'composite'
   steps:
-    # - name: 'Setup node'
-    #   uses: actions/setup-node@v3
-    #   with:
-    #     node-version: 16
+    - name: 'Setup node'
+      uses: actions/setup-node@v3
+      with:
+        node-version: 16
     - name: 'Install wrangler'
       shell: bash
       run: npm install wrangler
