@@ -1,0 +1,39 @@
+name: 'Deploy to Cloudflare Pages'
+description: 'A GitHub Action to deploy a directory as a Cloudflare site'
+author: '1F616EMO'
+inputs:
+  cloudflare_api_token:
+    description: 'The API Token used to deploy Cloudflare Pages, with edit privilege to pages'
+    required: true
+  cloudflare_account_id:
+    description: 'The Cloudflare Account ID'
+    required: true
+  cloudflare_project_name:
+    description: 'The project name of Cloudflare Pages'
+    required: true
+  branch:
+    description: 'The git branch to be uploaded'
+    required: true
+    default: 'main'
+  path:
+    description: 'The directory to site files'
+    required: true
+    default: '_site'
+runs:
+  steps:
+    - name: 'Setup node'
+      uses: actions/setup-node@v3
+      with:
+        node-version: 16
+    - name: 'Install wrangler'
+      shell: bash
+      run: npm install wrangler
+    - name: 'Upload artifact'
+      shell: bash
+      run: npx wrangler pages publish "$INPUT_PATH" --project-name "$CLOUDFLARE_PROJECT_NAME" --branch "$BRANCH"
+      env:
+        INPUT_PATH: ${{ inputs.path }}
+        BRANCH: ${{ inputs.branch }}
+        CLOUDFLARE_API_TOKEN: ${{ inputs.cloudflare_api_token }}
+        CLOUDFLARE_ACCOUNT_ID: ${{ inputs.cloudflare_account_id }}
+        CLOUDFLARE_PROJECT_NAME: ${{ inputs.cloudflare_project_name }}
