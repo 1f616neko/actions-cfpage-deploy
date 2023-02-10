@@ -1,6 +1,8 @@
 name: 'Deploy to Cloudflare Pages'
 description: 'A GitHub Action to deploy a directory as a Cloudflare site'
 author: '1F616EMO'
+runs:
+  using: 'node16'
 inputs:
   cloudflare_api_token:
     description: 'The API Token used to deploy Cloudflare Pages, with edit privilege to pages'
@@ -21,10 +23,10 @@ inputs:
     default: '_site'
 runs:
   steps:
-    - name: 'Setup node'
-      uses: actions/setup-node@v3
-      with:
-        node-version: 16
+    # - name: 'Setup node'
+    #   uses: actions/setup-node@v3
+    #   with:
+    #     node-version: 16
     - name: 'Install wrangler'
       shell: bash
       run: npm install wrangler
