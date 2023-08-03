@@ -31,7 +31,7 @@ runs:
       run: npm install wrangler
     - name: 'Upload artifact'
       shell: bash
-      run: npx wrangler pages publish "$INPUT_PATH" --project-name "$CLOUDFLARE_PROJECT_NAME" --branch "$BRANCH"
+      run: npx wrangler pages deploy "$INPUT_PATH" --project-name "$CLOUDFLARE_PROJECT_NAME" --branch "$BRANCH"
       env:
         INPUT_PATH: ${{ inputs.path }}
         BRANCH: ${{ inputs.branch }}
